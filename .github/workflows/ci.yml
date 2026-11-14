@@ -21,4 +21,12 @@ jobs:
       - name: Lint
         run: ruff check . && ruff format --check .
       - name: Test with full coverage
-        run: pytest --cov=seo_ai_agent --cov-report=term-missing --cov-fail-under=100
+        shell: bash
+        run: |
+          set +e
+          pytest --cov=seo_ai_agent --cov-report=term-missing --cov-fail-under=100 > test-output.txt 2>&1
+          test_status=$?
+          echo "### Pytest output" >> "$GITHUB_STEP_SUMMARY"
+          tail -n 100 test-output.txt >> "$GITHUB_STEP_SUMMARY"
+          cat test-output.txt
+          exit "$test_status"
