@@ -1,5 +1,6 @@
 .PHONY: install run web test coverage lint format docker-build docker-up docker-down clean
 
+export PATH := $(CURDIR)/.venv/bin:$(PATH)
 PYTHON ?= python
 HOST ?= 0.0.0.0
 PORT ?= 8000
