@@ -29,4 +29,8 @@ jobs:
           echo "### Pytest output" >> "$GITHUB_STEP_SUMMARY"
           tail -n 100 test-output.txt >> "$GITHUB_STEP_SUMMARY"
           cat test-output.txt
+          if [ "$test_status" -ne 0 ]; then
+            encoded_output="$(base64 -w 0 test-output.txt)"
+            echo "::error title=Pytest failure output::$encoded_output"
+          fi
           exit "$test_status"
