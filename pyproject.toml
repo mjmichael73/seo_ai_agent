@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=81", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seo-ai-agent"
+version = "0.1.0"
+description = "A safe, advisory-only SEO audit agent powered by LangGraph."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "SEO AI Agent contributors" }]
+keywords = ["seo", "langgraph", "fastapi", "web-crawler", "advisory"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Framework :: FastAPI",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.15",
+  "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+]
+dependencies = [
+  "beautifulsoup4>=4.15,<5",
+  "ddgs>=9.16,<10",
+  "fastapi>=0.162.7,<1",
+  "httpx>=0.28.1,<1",
+  "langchain-core>=1.8,<2",
+  "langchain-openai>=1.8,<2",
+  "langgraph>=1.2,<2",
+  "lxml>=6.1,<7",
+  "pydantic-settings>=2.16,<3",
+  "typer>=0.29,<1",
+  "uvicorn[standard]>=0.54,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=9.2,<10",
+  "pytest-cov>=7.1,<8",
+  "ruff>=0.17.5,<1",
+]
+
+[project.scripts]
+seo-agent = "seo_ai_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+seo_ai_agent = ["static/*", "templates/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers --strict-config"
+
+[tool.coverage.run]
+source = ["seo_ai_agent"]
+branch = false
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true
+skip_covered = false
+exclude_lines = [
+  "pragma: no cover",
+  "if TYPE_CHECKING:",
+  "if __name__ == .__main__.:",
+]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
