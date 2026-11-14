@@ -259,7 +259,8 @@ def test_sitemap_errors_and_rules_are_reported_without_crashing():
     sitemap_index = (
         "User-agent: *\nAllow: /\nDisallow: /blocked.xml\n"
         "Sitemap: https://other.example/index.xml\n"
-        "Sitemap: https://example.com/bad.xml\nSitemap: https://example.com/blocked.xml"
+        "Sitemap: https://example.com/bad.xml\nSitemap: https://example.com/missing.xml\n"
+        "Sitemap: https://example.com/blocked.xml"
     )
 
     def handler(request):
